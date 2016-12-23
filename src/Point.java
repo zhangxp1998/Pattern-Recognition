@@ -104,7 +104,7 @@ public class Point implements Comparable<Point>
 	{
 		return new Comparator<Point>()
 		{
-			private final Point origin = new Point(x, y);
+			private final Point origin = Point.this;
 
 			@Override
 			public int compare(Point o1, Point o2)
