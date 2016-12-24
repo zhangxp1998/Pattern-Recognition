@@ -44,6 +44,16 @@ public class BruteCollinearPoints
 	public BruteCollinearPoints(Point[] points) // finds all line segments
 												// containing 4 points
 	{
+		points = points.clone();
+		QuickX.sort(points);
+		for (int i = 1; i < points.length; i++)
+		{
+			if (points[i].compareTo(points[i - 1]) == 0)
+			{
+				throw new IllegalArgumentException();
+			}
+		}
+		
 		Stack<LineSegment> list = new Stack<LineSegment>();
 
 		for (int i = 0; i < points.length; i++)
@@ -69,7 +79,7 @@ public class BruteCollinearPoints
 			}
 		}
 		lines = new LineSegment[list.size()];
-		for(int i = 0; i < lines.length; i ++)
+		for (int i = 0; i < lines.length; i++)
 		{
 			lines[i] = list.pop();
 		}
@@ -82,6 +92,6 @@ public class BruteCollinearPoints
 
 	public LineSegment[] segments() // the line segments
 	{
-		return lines;
+		return lines.clone();
 	}
 }

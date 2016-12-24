@@ -3,17 +3,33 @@ import java.util.Comparator;
 
 import edu.princeton.cs.algs4.Stack;
 
-
 public class FastCollinearPoints
 {
 	private LineSegment lines[];
 
+	private Point min(Point p1, Point p2)
+	{
+		if (p1.compareTo(p2) < 0)
+			return p1;
+		else
+			return p2;
+	}
+
+	private Point max(Point p1, Point p2)
+	{
+		if (p1.compareTo(p2) > 0)
+			return p1;
+		else
+			return p2;
+	}
+
 	public FastCollinearPoints(Point[] points) // finds all line segments
 												// containing 4 points
 	{
+		final Point[] old = points;
+		points = points.clone();
+
 		QuickX.sort(points);
-		Point[] old = new Point[points.length];
-		System.arraycopy(points, 0, old, 0, old.length);
 
 		Stack<LineSegment> stack = new Stack<LineSegment>();
 
@@ -27,18 +43,18 @@ public class FastCollinearPoints
 			{
 				if (points[i].slopeTo(p) != startSlope)
 				{
-					if(i - start >= 4)
+					if (i - start >= 3)
 					{
-						stack.push(new LineSegment(points[start], points[i-1]));
+						stack.push(new LineSegment(max(points[start], p), min(points[i - 1], p)));
 						start = i;
 						startSlope = points[i].slopeTo(p);
 					}
 				}
 			}
 		}
-		
+
 		lines = new LineSegment[stack.size()];
-		for(int i = 0; i < lines.length; i ++)
+		for (int i = 0; i < lines.length; i++)
 		{
 			lines[i] = stack.pop();
 		}
@@ -51,6 +67,6 @@ public class FastCollinearPoints
 
 	public LineSegment[] segments() // the line segments
 	{
-		return lines;
+		return lines.clone();
 	}
 }
