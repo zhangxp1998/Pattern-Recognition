@@ -34,6 +34,14 @@ public class FastCollinearPoints
 
 		QuickX.sort(points);
 
+		for (int i = 1; i < points.length; i++)
+		{
+			if (points[i].compareTo(points[i - 1]) == 0)
+			{
+				throw new IllegalArgumentException();
+			}
+		}
+		
 		Stack<LineSegment> stack = new Stack<LineSegment>();
 
 		for (Point p : old)
@@ -41,9 +49,9 @@ public class FastCollinearPoints
 			Comparator<Point> order = p.slopeOrder();
 			Point[] copy = points.clone();
 			Arrays.sort(copy, order);
-			int start = 1;
-			double startSlope = copy[1].slopeTo(p);
-			for (int i = 2; i < copy.length; i++)
+			int start = 0;
+			double startSlope = copy[0].slopeTo(p);
+			for (int i = 1; i < copy.length; i++)
 			{
 				if (copy[i].slopeTo(p) != startSlope)
 				{
