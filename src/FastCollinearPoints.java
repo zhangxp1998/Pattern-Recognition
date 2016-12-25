@@ -10,22 +10,6 @@ public class FastCollinearPoints
 {
 	private LineSegment lines[];
 
-	// private Point min(Point p1, Point p2)
-	// {
-	// if (p1.compareTo(p2) < 0)
-	// return p1;
-	// else
-	// return p2;
-	// }
-	//
-	// private Point max(Point p1, Point p2)
-	// {
-	// if (p1.compareTo(p2) > 0)
-	// return p1;
-	// else
-	// return p2;
-	// }
-
 	public FastCollinearPoints(Point[] points) // finds all line segments
 												// containing 4 points
 	{
